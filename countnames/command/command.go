@@ -41,7 +41,6 @@ func (c *Command) Execute() *config.Config {
 	var (
 		inputFlag []string
 		charFlag string
-		matchFlag bool
 	)
 
 	// check if it has bee execute
@@ -53,15 +52,23 @@ func (c *Command) Execute() *config.Config {
 	// setup root cmd
 	c.rootCmd.PersistentFlags().StringSliceVarP(&inputFlag, "input", "i", make([]string, 0), "input files")
 	c.rootCmd.PersistentFlags().StringVarP(&charFlag, "char", "c", "", "Characters for match or unmatch, empty displays total number of filenames")
-	c.rootCmd.PersistentFlags().BoolVarP(&matchFlag, "match", "m", false, "match or unmatch for characters")
 	// required flag
 	c.rootCmd.MarkPersistentFlagRequired("input")
 
 	// setup subcommand and rootCmd
 	c.rootCmd.Execute()
 
+	// check input from cli
+	inputFiles, err := c.CheckInput(inputFlag)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(0)
+	}
+
 	// setup config
 	config := config.NewConfig()
+	config.Files = inputFiles
+	config.Char = charFlag
 
 	return config
 }
