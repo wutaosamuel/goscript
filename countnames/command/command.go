@@ -12,8 +12,7 @@ import (
 
 // Command command object
 type Command struct {
-	rootCmd   *cobra.Command // root command is main application command from cobra library
-	isExecute bool           // does root command has been exectue()
+	rootCmd *cobra.Command // root command is main application command from cobra library
 }
 
 // NewCommand create a new command object
@@ -25,14 +24,8 @@ func NewCommand() *Command {
 	}
 
 	return &Command{
-		rootCmd:   rootCmd,
-		isExecute: false,
+		rootCmd: rootCmd,
 	}
-}
-
-// GetIsExecute get state of root command has been executed
-func (c *Command) GetIsExecute() bool {
-	return c.isExecute
 }
 
 // Execute execute main rootCmd
@@ -40,14 +33,8 @@ func (c *Command) Execute() *config.Config {
 	// setup rootCmd flags
 	var (
 		inputFlag []string
-		charFlag string
+		charFlag  string
 	)
-
-	// check if it has bee execute
-	if c.isExecute {
-		fmt.Println("Pls, check it has been executed")
-		os.Exit(0)
-	}
 
 	// setup root cmd
 	c.rootCmd.PersistentFlags().StringSliceVarP(&inputFlag, "input", "i", make([]string, 0), "input files")
@@ -75,11 +62,6 @@ func (c *Command) Execute() *config.Config {
 
 // UsageExit printout the usage of the root command the exit
 func (c *Command) UsageExit() {
-	if !c.isExecute {
-		fmt.Println("The rootCmd has not been executed")
-		os.Exit(0)
-	}
-
 	fmt.Print(c.rootCmd.UsageString())
 	os.Exit(1)
 }
