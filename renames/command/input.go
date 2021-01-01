@@ -93,3 +93,15 @@ func (c *Command) checkIntSlice(ints []int) {
 		}
 	}
 }
+
+// checkList check list no more than 5
+func (c *Command) checkList(list int) {
+	if list < 0 {
+		fmt.Println("Pls, enter a positive integer")
+		c.UsageExit()
+	}
+	if list > 4 {
+		fmt.Println("Have only 5 operations(0~5)")
+		c.UsageExit()
+	}
+}

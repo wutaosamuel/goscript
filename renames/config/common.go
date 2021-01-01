@@ -1,14 +1,26 @@
 package config
 
-// OpCode operation code for subcommand
+// ListOperation list operation
+type ListOperation uint
+
+// DefaultOP
+const (
+	DefaultList ListOperation = iota
+	NameList
+	TimeList
+	SizeList
+	ExtensionList
+)
+
+// OpCode op code
 type OpCode uint
 
-// Subcommand operations
+// operation
 const (
-	ErrorOp OpCode = iota
-	DefaultOp
-	NameOp
-	TimeOp
-	SizeOp
-	ExtensionOp
+	DefaultOp OpCode = iota
+	AddOp
+	DeleteOp
+	RenameOp
+	ListOp
+	CountOp
 )
