@@ -32,14 +32,14 @@ type Count struct {
 func NewAdd() *Add {
 	return &Add{
 		Char:   "",
-		Number: 0,
+		Number: -1,
 	}
 }
 
 // NewDelete create Delete object
 func NewDelete() *Delete {
 	return &Delete{
-		Number: 0,
+		Number: -1,
 	}
 }
 
@@ -47,7 +47,7 @@ func NewDelete() *Delete {
 func NewRename() *Rename {
 	return &Rename{
 		Char:      "",
-		Number:    0,
+		Number:    -1,
 		Extension: "",
 	}
 }

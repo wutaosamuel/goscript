@@ -1,13 +1,17 @@
 package config
 
+import "../common"
+
 // Config contain filenames and operations
 type Config struct {
 	Files     []string      // The input files' name
 	OutputDir string        // Output directory for copying
 	Begin     bool          // Do operation at begin of filename
 	Pick      []int         // Select files in the range
-	Reverse   bool          // Reverse orders
 	ListFile  ListOperation // List Operation
+	Reverse   bool          // Reverse orders
+
+	OpCode common.OpCode // opcode for sub command
 
 	// subcommand
 	Add    *Add
@@ -26,8 +30,10 @@ func NewConfig() *Config {
 		OutputDir: "",
 		Begin:     false,
 		Pick:      make([]int, 0),
-		Reverse:   false,
 		ListFile:  DefaultList,
+		Reverse:   false,
+
+		OpCode: common.DefaultOp,
 
 		Add:    NewAdd(),
 		Delete: NewDelete(),
@@ -44,18 +50,20 @@ func (c *Config) SetListOperation(operation int) {
 	c.ListFile = setListOperation(operation)
 }
 
+// GetListFileInt get list operation
+func (c *Config) GetListFileInt() int {
+	return ListOperationToInt[c.ListFile]
+}
+
 // setListOperation set list operation
 func setListOperation(operation int) ListOperation {
-	switch {
-	case operation == 1:
-		return NameList
-	case operation == 2:
-		return TimeList
-	case operation == 3:
-		return SizeList
-	case operation == 4:
-		return ExtensionList
-	default:
+	if operation < 0 || operation > 4 {
 		return DefaultList
 	}
+	return IntToListOperation[operation]
+}
+
+// ListOperationInt get list operation int
+func ListOperationInt(operation ListOperation) int {
+	return ListOperationToInt[operation]
 }
