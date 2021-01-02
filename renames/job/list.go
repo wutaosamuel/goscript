@@ -11,11 +11,7 @@ import (
 
 // List display files orders
 func (j *Job) List() {
-	result, err := listnames.Execute(j.Files, j.Pick, j.Reverse, convertListOperation(j.ListOperation))
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+	result := j.list()
 
 	// print out result
 	fmt.Println("List file name: ")
@@ -24,9 +20,36 @@ func (j *Job) List() {
 		listnames.ConsoleString(result)
 	}
 	if len(j.Pick) != 0 {
-		selectFiles := listnames.SelectFiles(result, j.Pick)
-		listnames.SelectConsoleString(result, selectFiles)
+		listnames.SelectConsoleString(result, j.SelectedFiles)
 	}
+}
+
+// list sorted files
+// 	- auto default
+// 	- it will check picked files
+//	- it will check if reverse order
+func (j *Job) list() []string {
+	result, err := listnames.Execute(j.Files, j.Pick, j.Reverse, convertListOperation(j.ListOperation))
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	selectedFiles := SelectFiles(result, j.Pick)
+
+	// reverse file list order
+	if j.Reverse {
+		for i, j := 0, len(j.Files)-1; i < j; i, j = i+1, j-1 {
+			result[i], result[j] = result[j], result[i]
+		}
+		for i, j := 0, len(selectedFiles)-1; i < j; i, j = i+1, j-1 {
+			selectedFiles[i], selectedFiles[j] = selectedFiles[j], selectedFiles[i]
+		}
+	}
+	// set file list and selected file list
+	j.Files = result
+	j.SelectedFiles = selectedFiles
+
+	return result
 }
 
 // convertListOperation convert Operation
