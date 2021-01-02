@@ -1,6 +1,8 @@
 package job
 
 import (
+	"sort"
+
 	"../common"
 	"../config"
 )
@@ -9,7 +11,7 @@ import (
 type Job struct {
 	Files         []string // all files
 	SelectedFiles []string // select files by pick flag
-	IsSelect      bool     // check if it needs to select
+	Pick          []int    // pick files
 	OutputDir     string   // output dir
 	AtBegin       bool     // do operation on start of filename
 
@@ -27,7 +29,7 @@ func NewJob() *Job {
 	return &Job{
 		Files:         make([]string, 0),
 		SelectedFiles: make([]string, 0),
-		IsSelect:      false,
+		Pick:          make([]int, 0),
 		OutputDir:     "",
 		AtBegin:       false,
 
@@ -47,9 +49,7 @@ func NewJobRead(files []string, outputDir string, pick []int, atBegin bool, doLi
 	j := NewJob()
 	j.Files = files
 	j.OutputDir = outputDir
-	if len(pick) != 0 {
-		j.IsSelect = true
-	}
+	j.Pick = pick
 	j.AtBegin = atBegin
 	j.DoList = doList
 	j.Reverse = reverse
@@ -73,9 +73,7 @@ func ReadConfig(c *config.Config) *Job {
 func (j *Job) ReadConfig(c *config.Config) {
 	j.Files = c.Files
 	j.OutputDir = c.OutputDir
-	if len(c.Pick) != 0 {
-		j.IsSelect = true
-	}
+	j.Pick = c.Pick
 	j.AtBegin = c.Begin
 	j.DoList = c.ListFile
 	j.Reverse = c.Reverse
@@ -99,4 +97,33 @@ func (j *Job) ReadConfig(c *config.Config) {
 	if doList == common.CountOp {
 		j.Char = c.Count.Char
 	}
+}
+
+// SelectFiles select files
+// 	- start from 0
+func SelectFiles(files []string, pick []int) []string {
+	var isStart bool
+	var pLocation int
+	var result []string
+	// do not nothing, when no files or selection
+	if len(files) == 0 || len(pick) == 0 {
+		return files
+	}
+
+	isStart = false
+	pLocation = 0
+	sort.Ints(pick)
+	for k, v := range files {
+		if pLocation < len(pick) {
+			if k == pick[pLocation] {
+				isStart = !isStart
+				pLocation++
+			}
+		}
+		if isStart {
+			result = append(result, v)
+		}
+	}
+
+	return result
 }
