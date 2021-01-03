@@ -1,6 +1,7 @@
 package job
 
 import (
+	"io/ioutil"
 	"sort"
 
 	"../common"
@@ -126,4 +127,14 @@ func SelectFiles(files []string, pick []int) []string {
 	}
 
 	return result
+}
+
+// Copy copy files
+func Copy(oldPath, newPath string) error {
+	readFile, err := ioutil.ReadFile(oldPath)
+	if err != nil {
+		return err
+	}
+
+	return ioutil.WriteFile(newPath, readFile, 0777)
 }
