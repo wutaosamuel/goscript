@@ -2,8 +2,8 @@ package job
 
 import (
 	"fmt"
-	"strconv"
 	"os"
+	"strconv"
 )
 
 // Add add func
@@ -13,13 +13,16 @@ func (j *Job) Add() {
 
 	// setup all files or selected files
 	fileJob := NewFileJob()
+	files := make([]string, 0)
 	if len(j.SelectedFiles) == 0 {
-		fileJob.ParseFilenames(j.Files)
+		files = j.Files
 	}
 	if len(j.SelectedFiles) != 0 {
-		fileJob.ParseFilenames(j.SelectedFiles)
+		files = j.SelectedFiles
 	}
+	fileJob.ParseFilenames(files)
 
+	// add to file name
 	char := j.Char
 	number := j.Number
 	if j.Number < 0 {
@@ -60,7 +63,7 @@ func (j *Job) Add() {
 				fmt.Println("Add rename Error")
 				os.Exit(0)
 			}
-			os.Rename(fileJob.Files[k].ToFullFileName(), v)
+			os.Rename(files[k], v)
 		}
 	}
 	// add -> copy to target dir
@@ -70,7 +73,7 @@ func (j *Job) Add() {
 				fmt.Println("Add copy error")
 				os.Exit(0)
 			}
-			Copy(fileJob.Files[k].ToFullFileName(), v)
+			Copy(files[k], v)
 		}
 	}
 }
