@@ -38,7 +38,7 @@ func (j *Job) Rename() {
 		for k, v := range fileJob.Files {
 			v.Name = char + strconv.Itoa(number+k)
 			if extension != "" {
-				v.Extension = extension
+				v.Extension = "." + extension
 			}
 		}
 	}
@@ -47,7 +47,7 @@ func (j *Job) Rename() {
 		for k, v := range fileJob.Files {
 			v.Name = strconv.Itoa(number+k) + char
 			if extension != "" {
-				v.Extension = extension
+				v.Extension = "." + extension
 			}
 		}
 	}

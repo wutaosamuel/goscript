@@ -1,6 +1,8 @@
 package renames
 
 import (
+	"fmt"
+
 	"./common"
 	"./command"
 	j "./job"
@@ -17,12 +19,15 @@ func Main() {
 	}
 	if cfg.OpCode == common.AddOp {
 		job.Add()
+		fmt.Println("Add done")
 	}
 	if cfg.OpCode == common.DeleteOp {
 		job.Delete()
+		fmt.Println("Delete done")
 	}
 	if cfg.OpCode == common.RenameOp {
 		job.Rename()
+		fmt.Println("Rename done")
 	}
 	if cfg.OpCode == common.ListOp {
 		job.List()

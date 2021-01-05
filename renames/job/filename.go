@@ -28,6 +28,8 @@ func (j *FileJob) ParseFilenames(files []string) {
 		filename.Dir = dir
 		filename.Name = base[0 : len(base)-len(extension)]
 		filename.Extension = extension
+		
+		j.Files = append(j.Files, filename)
 	}
 }
 
