@@ -9,7 +9,7 @@ import (
 // Add add func
 func (j *Job) Add() {
 	// sort and list file orders
-	j.list()
+	j.list(j.DoList)
 
 	// setup all files or selected files
 	fileJob := NewFileJob()

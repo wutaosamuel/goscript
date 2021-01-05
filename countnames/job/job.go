@@ -32,7 +32,8 @@ func (j *Job) CountDefault() []string {
 	result = make([]string, 0, len(j.Files))
 	for _, f := range j.Files {
 		extension := filepath.Ext(f)
-		base := f[0 : len(f)-len(extension)]
+		base := filepath.Base(f)
+		base = base[0 : len(base)-len(extension)]
 		result = append(result, strconv.Itoa(len(base))+extension)
 	}
 
@@ -49,7 +50,8 @@ func (j *Job) CountMatch() []string {
 
 	for _, f := range j.Files {
 		extension := filepath.Ext(f)
-		base := f[0 : len(f)-len(extension)]
+		base := filepath.Base(f)
+		base = base[0 : len(base)-len(extension)]
 		matcher := NewMatcher()
 
 		matcher.Match(base, j.Char)

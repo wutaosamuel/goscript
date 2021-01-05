@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 
 	"../utils"
 )
@@ -75,7 +76,7 @@ func (c *Command) CheckInput(input []string) ([]string, error) {
 			return nil, err
 		}
 		for _, f := range files {
-			fileNames = append(fileNames, f.Name())
+			fileNames = append(fileNames, filepath.Join(dirs[0], f.Name()))
 		}
 
 		return fileNames, nil

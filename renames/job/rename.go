@@ -9,7 +9,7 @@ import (
 // Rename delete func
 func (j *Job) Rename() {
 	// sort and list file orders
-	j.list()
+	j.list(j.DoList)
 
 	// setup all files or selected files
 	fileJob := NewFileJob()

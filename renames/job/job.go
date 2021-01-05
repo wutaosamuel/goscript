@@ -79,7 +79,10 @@ func (j *Job) ReadConfig(c *config.Config) {
 	j.DoList = c.ListFile
 	j.Reverse = c.Reverse
 
-	doList := common.DefaultOp
+	doList := c.OpCode
+	if doList == common.DefaultOp {
+		j.ListOperation = c.List.Operation
+	}
 	if doList == common.AddOp {
 		j.Char = c.Add.Char
 		j.Number = c.Add.Number

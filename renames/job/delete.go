@@ -8,7 +8,7 @@ import (
 // Delete delete func
 func (j *Job) Delete() {
 	// sort and list file orders
-	j.list()
+	j.list(j.DoList)
 
 	// setup all files or selected files
 	fileJob := NewFileJob()

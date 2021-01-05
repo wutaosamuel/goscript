@@ -48,7 +48,7 @@ func (c *Command) Execute() *config.Config {
 	c.rootCmd.PersistentFlags().BoolVarP(&beginFlag, "begin", "b", false, "add/delete/rename, at beginning characters of filename, default false: at end of filename")
 	c.rootCmd.PersistentFlags().IntSliceVarP(&pickFlag, "pick", "p", make([]int, 0), "select files in a range, start from 0")
 	c.rootCmd.PersistentFlags().BoolVarP(&reverseFlag, "reverse", "r", false, "Reverse files orders")
-	c.rootCmd.PersistentFlags().IntVarP(&listFlag, "list", "l", -1, "use list files order/number, 0: default; 1: by name; 2: by time; 3: by size; 4: by extension")
+	c.rootCmd.PersistentFlags().IntVarP(&listFlag, "list", "l", 0, "use list files order/number, 0: default; 1: by name; 2: by time; 3: by size; 4: by extension")
 	// required flag
 	c.rootCmd.MarkPersistentFlagRequired("input")
 
@@ -216,7 +216,7 @@ func (c *Command) setupCountOp(op *common.OpCode, count *config.Count) {
 Default: display total number of filename`,
 		Run: func(cmd *cobra.Command, arg []string) {
 			c.runError(op)
-			*op = common.ListOp
+			*op = common.CountOp
 		},
 	}
 

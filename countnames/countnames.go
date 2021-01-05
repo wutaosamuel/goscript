@@ -55,6 +55,8 @@ func ConsoleString(files []string, result []string) {
 	}
 
 	// display -> n filename.txt 8.txt
+	fmt.Println("Count results: ")
+	fmt.Println()
 	for k, v := range files {
 		n := strconv.Itoa(k)
 		fmt.Fprintln(writer, n+".\t"+v+"\t"+result[k])

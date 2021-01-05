@@ -11,7 +11,7 @@ import (
 
 // List display files orders
 func (j *Job) List() {
-	result := j.list()
+	result := j.list(j.ListOperation)
 
 	// print out result
 	fmt.Println("List file name: ")
@@ -28,8 +28,8 @@ func (j *Job) List() {
 // 	- auto default
 // 	- it will check picked files
 //	- it will check if reverse order
-func (j *Job) list() []string {
-	result, err := listnames.Execute(j.Files, j.Pick, j.Reverse, convertListOperation(j.ListOperation))
+func (j *Job) list(listOperation c.ListOperation) []string {
+	result, err := listnames.Execute(j.Files, j.Pick, j.Reverse, convertListOperation(listOperation))
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
