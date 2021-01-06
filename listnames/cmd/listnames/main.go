@@ -1,6 +1,6 @@
 package main
 
-import "../../listnames"
+import "../../../listnames"
 
 func main() {
 	listnames.Main()

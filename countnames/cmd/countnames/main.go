@@ -1,6 +1,6 @@
 package main
 
-import "../../countnames"
+import "../../../countnames"
 
 func main() {
 	countnames.Main()
