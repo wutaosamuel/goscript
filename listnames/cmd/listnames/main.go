@@ -1,6 +1,6 @@
 package main
 
-import "../../../listnames"
+import "goscript/listnames"
 
 func main() {
 	listnames.Main()

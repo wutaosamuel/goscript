@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"../../listnames"
-	"../../listnames/config"
-	c "../config"
+	"goscript/listnames"
+	"goscript/listnames/config"
+	c "goscript/renames/config"
 )
 
 // List display files orders

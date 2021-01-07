@@ -6,8 +6,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"../common"
-	"../config"
+	"goscript/countnames/common"
+	"goscript/countnames/config"
 )
 
 // Command command object

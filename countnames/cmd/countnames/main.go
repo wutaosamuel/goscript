@@ -1,6 +1,6 @@
 package main
 
-import "../../../countnames"
+import "goscript/countnames"
 
 func main() {
 	countnames.Main()

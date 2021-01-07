@@ -3,9 +3,9 @@ package renames
 import (
 	"fmt"
 
-	"./common"
-	"./command"
-	j "./job"
+	"goscript/renames/common"
+	"goscript/renames/command"
+	j "goscript/renames/job"
 )
 
 // Main func

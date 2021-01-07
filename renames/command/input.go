@@ -7,7 +7,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"../utils"
+	"goscript/renames/utils"
 )
 
 // CheckInput check the input

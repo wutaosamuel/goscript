@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"text/tabwriter"
 
-	"./command"
-	"./config"
-	j "./job"
+	"goscript/countnames/command"
+	"goscript/countnames/config"
+	j "goscript/countnames/job"
 )
 
 // Main func

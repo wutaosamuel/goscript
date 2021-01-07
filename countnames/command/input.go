@@ -7,7 +7,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"../utils"
+	"goscript/countnames/utils"
 )
 
 // CheckInput check the input

@@ -15,4 +15,5 @@
 # vendor/
 
 ######### Project
+.vscode/
 tmp/

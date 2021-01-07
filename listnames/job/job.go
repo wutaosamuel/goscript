@@ -1,7 +1,7 @@
 package job
 
 import (
-	"../config"
+	"goscript/listnames/config"
 )
 
 // Job is job
