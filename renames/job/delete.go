@@ -36,9 +36,8 @@ func (j *Job) Delete() {
 				fmt.Println("Not allow to delete too much.")
 				os.Exit(0)
 			}
-			name := v.Name[0 : len(v.Name)-number]
-			v.Name = name
-			fmt.Println(v.Name)
+			nameRune := []rune(v.Name)
+			v.Name = string(nameRune[0 : len(nameRune)-number])
 		}
 	}
 	// delete at begin of filename
@@ -48,9 +47,8 @@ func (j *Job) Delete() {
 				fmt.Println("Not allow to delete too much.")
 				os.Exit(0)
 			}
-			name :=  v.Name[number:]
-			v.Name = name
-			fmt.Println(v.Name)
+			nameRune := []rune(v.Name)
+			v.Name = string(nameRune[number:])
 		}
 	}
 
