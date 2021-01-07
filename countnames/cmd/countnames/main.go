@@ -1,6 +1,6 @@
 package main
 
-import "goscript/countnames"
+import "github.com/wutaosamuel/goscript/countnames"
 
 func main() {
 	countnames.Main()

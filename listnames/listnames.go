@@ -8,9 +8,9 @@ import (
 	"strconv"
 	"text/tabwriter"
 
-	"goscript/listnames/command"
-	"goscript/listnames/config"
-	j "goscript/listnames/job"
+	"github.com/wutaosamuel/goscript/listnames/command"
+	"github.com/wutaosamuel/goscript/listnames/config"
+	j "github.com/wutaosamuel/goscript/listnames/job"
 )
 
 // Main func

@@ -6,8 +6,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"goscript/renames/common"
-	"goscript/renames/config"
+	"github.com/wutaosamuel/goscript/renames/common"
+	"github.com/wutaosamuel/goscript/renames/config"
 )
 
 // Command command object

@@ -3,7 +3,7 @@ package command
 import (
 	"errors"
 
-	"goscript/listnames/utils"
+	"github.com/wutaosamuel/goscript/listnames/utils"
 )
 
 // CheckOutputDir check output dir

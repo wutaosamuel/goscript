@@ -4,8 +4,8 @@ import (
 	"io/ioutil"
 	"sort"
 
-	"goscript/renames/common"
-	"goscript/renames/config"
+	"github.com/wutaosamuel/goscript/renames/common"
+	"github.com/wutaosamuel/goscript/renames/config"
 )
 
 // Job job object

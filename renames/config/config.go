@@ -1,6 +1,6 @@
 package config
 
-import "goscript/renames/common"
+import "github.com/wutaosamuel/goscript/renames/common"
 
 // Config contain filenames and operations
 type Config struct {

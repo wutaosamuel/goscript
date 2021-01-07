@@ -1,6 +1,6 @@
 package job
 
-import "goscript/countnames"
+import "github.com/wutaosamuel/goscript/countnames"
 
 // Count count file names
 func (j *Job) Count() {

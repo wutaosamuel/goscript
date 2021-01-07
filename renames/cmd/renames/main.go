@@ -1,6 +1,6 @@
 package main
 
-import "goscript/renames"
+import "github.com/wutaosamuel/goscript/renames"
 
 func main() {
 	renames.Main()
