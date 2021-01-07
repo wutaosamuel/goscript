@@ -146,7 +146,7 @@ func Copy(src, dst string) error {
 	}
 
 	dstStat, _ := os.Stat(dst)
-	if !dstStat.Mode().IsRegular() {
+	if !(dstStat.Mode().IsRegular()) {
 		return errors.New("CopyFile: non-regular source file")
 	}
 	if os.SameFile(srcStat, dstStat) {
