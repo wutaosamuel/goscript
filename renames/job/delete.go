@@ -3,7 +3,6 @@ package job
 import (
 	"fmt"
 	"os"
-	"sync"
 )
 
 // Delete delete func
@@ -59,27 +58,12 @@ func (j *Job) Delete() {
 		fmt.Println("Contains the same files, pls enter different char and number")
 		os.Exit(0)
 	}
-	// delete -> rename
-	if j.OutputDir == "" {
-		for k, v := range result {
-			if k != fileJob.Files[k].ID {
-				fmt.Println("Add rename Error")
-				os.Exit(0)
-			}
-			os.Rename(files[k], v)
+	// delete -> rename or move filse
+	for k, v := range result {
+		if k != fileJob.Files[k].ID {
+			fmt.Println("Add rename Error")
+			os.Exit(0)
 		}
-	}
-	// delete -> copy to target dir
-	if j.OutputDir != "" {
-		wg := new(sync.WaitGroup)
-		for k, v := range result {
-			if k != fileJob.Files[k].ID {
-				fmt.Println("Add rename Error")
-				os.Exit(0)
-			}
-			wg.Add(1)
-			GoCopy(files[k], v, wg)
-		}
-		wg.Wait()
+		os.Rename(files[k], v)
 	}
 }
