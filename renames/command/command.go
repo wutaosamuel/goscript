@@ -18,7 +18,7 @@ type Command struct {
 // NewCommand create a new command object
 func NewCommand() *Command {
 	var rootCmd = &cobra.Command{
-		Use:     "listnames",
+		Use:     "renames",
 		Version: common.Version(),
 		Run:     func(cmd *cobra.Command, args []string) {},
 	}
