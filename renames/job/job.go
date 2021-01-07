@@ -1,7 +1,9 @@
 package job
 
 import (
-	"io/ioutil"
+	"errors"
+	"io"
+	"os"
 	"sort"
 
 	"github.com/wutaosamuel/goscript/renames/common"
@@ -133,11 +135,47 @@ func SelectFiles(files []string, pick []int) []string {
 }
 
 // Copy copy files
-func Copy(oldPath, newPath string) error {
-	readFile, err := ioutil.ReadFile(oldPath)
+func Copy(src, dst string) error {
+	// check file
+	srcStat, err := os.Stat(src)
 	if err != nil {
 		return err
 	}
+	if !srcStat.Mode().IsRegular() {
+		return errors.New("CopyFile: non-regular source file")
+	}
 
-	return ioutil.WriteFile(newPath, readFile, 0777)
+	dstStat, _ := os.Stat(dst)
+	if !dstStat.Mode().IsRegular() {
+		return errors.New("CopyFile: non-regular source file")
+	}
+	if os.SameFile(srcStat, dstStat) {
+		return errors.New("CopyFile: have the same file")
+	}
+
+	// copy contents
+	return CopyContents(src, dst)
+}
+
+// CopyContents copy file content
+func CopyContents(src, dst string) error {
+	in, err := os.Open(src)
+	if err != nil {
+		return errors.New("CopyContents: open error")
+	}
+	defer in.Close()
+	out, err := os.Create(dst)
+	if err != nil {
+		return err
+	}
+	defer func() {
+		cerr := out.Close()
+		if err == nil {
+			err = cerr
+		}
+	}()
+	if _, err = io.Copy(out, in); err != nil {
+		return err
+	}
+	return out.Sync()
 }
