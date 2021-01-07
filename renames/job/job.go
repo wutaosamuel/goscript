@@ -5,6 +5,7 @@ import (
 	"io"
 	"os"
 	"sort"
+	"sync"
 
 	"github.com/wutaosamuel/goscript/renames/common"
 	"github.com/wutaosamuel/goscript/renames/config"
@@ -134,6 +135,16 @@ func SelectFiles(files []string, pick []int) []string {
 	return result
 }
 
+// GoCopy go copy
+func GoCopy(src, dst string, wg *sync.WaitGroup) error {
+	if err := Copy(src, dst); err != nil {
+		return err
+	}
+	wg.Done()
+
+	return nil
+}
+
 // Copy copy files
 func Copy(src, dst string) error {
 	// check file
@@ -142,7 +153,7 @@ func Copy(src, dst string) error {
 		return err
 	}
 	if !srcStat.Mode().IsRegular() {
-		return errors.New("CopyFile: non-regular source file")
+		return errors.New("CopyFile: " + src + " is non-regular source file ")
 	}
 
 	// copy contents
@@ -153,7 +164,7 @@ func Copy(src, dst string) error {
 func CopyContents(src, dst string) error {
 	in, err := os.Open(src)
 	if err != nil {
-		return errors.New("CopyContents: open error")
+		return errors.New("CopyContents: open error" + "on " + src)
 	}
 	defer in.Close()
 	out, err := os.Create(dst)

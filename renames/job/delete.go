@@ -3,6 +3,7 @@ package job
 import (
 	"fmt"
 	"os"
+	"sync"
 )
 
 // Delete delete func
@@ -70,12 +71,15 @@ func (j *Job) Delete() {
 	}
 	// delete -> copy to target dir
 	if j.OutputDir != "" {
+		wg := new(sync.WaitGroup)
 		for k, v := range result {
 			if k != fileJob.Files[k].ID {
 				fmt.Println("Add rename Error")
 				os.Exit(0)
 			}
-			Copy(files[k], v)
+			wg.Add(1)
+			GoCopy(files[k], v, wg)
 		}
+		wg.Wait()
 	}
 }

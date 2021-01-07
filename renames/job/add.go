@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"sync"
 )
 
 // Add add func
@@ -68,12 +69,15 @@ func (j *Job) Add() {
 	}
 	// add -> copy to target dir
 	if j.OutputDir != "" {
+		wg := new(sync.WaitGroup)
 		for k, v := range result {
 			if k != fileJob.Files[k].ID {
 				fmt.Println("Add copy error")
 				os.Exit(0)
 			}
-			Copy(files[k], v)
+			wg.Add(1)
+			GoCopy(files[k], v, wg)
 		}
+		wg.Wait()
 	}
 }
