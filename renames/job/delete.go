@@ -46,7 +46,7 @@ func (j *Job) Delete() {
 				fmt.Println("Not allow to delete too much.")
 				os.Exit(0)
 			}
-			v.Name = v.Name[number:0]
+			v.Name = v.Name[number:]
 		}
 	}
 
